@@ -63,7 +63,7 @@ ql repo https://github.com/yuxian158/check.git "oc_" "" "checksend|utils"
 我全都要:
 
 ```
-ql repo https://github.com/yuxian158/check.git "" "" "checksend|utils"
+ql repo https://github.com/yuxian158/check.git "ck_|oc_" "" "checksend|utils"
 ```
 
 ### 2.配置

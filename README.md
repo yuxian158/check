@@ -38,7 +38,7 @@
 
 #### 1.dailycheckin_scripts：
 
-该文件夹下是https://github.com/sitoi/dailycheckin该项目的全部支持脚本
+该文件夹下是https://github.com/sitoi/dailycheckin(https://github.com/sitoi/dailycheckin) 该项目的全部支持脚本
 [具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
 
 ## 使用方法

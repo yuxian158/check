@@ -38,7 +38,8 @@
 
 #### 1.dailycheckin_scripts：
 
-该文件夹下是https://github.com/sitoi/dailycheckin该项目的全部支持脚本[具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
+该文件夹下是https://github.com/sitoi/dailycheckin该项目的全部支持脚本
+[具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
 
 ## 使用方法
 
@@ -96,8 +97,11 @@ cp /ql/repo/yuxian158_check/check.sample.json /ql/config/check.json
 * [TOML 教程中文版](https://toml.io/cn/v1.0.0)
 #### 2.排错指引
 1.在sitoi/dailycheckin的某次更新中修改了键名，请尽量删除原配置文件后重新配置
+
 2.本库找配置文件时使用了正则表达式,在最外层配置时可以不区分大小写，且只要包含字段就可以，甚至可以写中文(强烈不建议这么写,貌似toml不支持)
+
 3.很多脚本并没有测试
+
 4.本库所有脚本都未加运行时间提示，可以拉取后所有脚本运行时间都一样
 
 ## 致谢

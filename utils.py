@@ -16,7 +16,7 @@ def toml_to_json(toml_path, to_json_path):
     """
     :param toml_path: 需要转换的toml文件的路径
     :param to_json_path: 需要输出的json文件路径
-    :return: NONE
+    :return: None
     """
     with open(toml_path, "rb") as f:
         toml_dict = tomli.load(f)
@@ -157,11 +157,12 @@ class check(object):
 
     @staticmethod
     def other_task():
-        change_db()
+        # change_db()
+        pass
 
     def __call__(self, func):
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper():
             if not self.Configuration_flag:
                 config = config_get()
                 value_list = config.get_value(self.run_script_expression)
@@ -200,7 +201,7 @@ class check(object):
         return wrapper
 
 
-def change_cron(cron_file_path="/ql/db/crontab.db",repositories="yuxian158_check"):
+def change_cron(cron_file_path="/ql/db/crontab.db", repositories="yuxian158_check"):
     def change_time(time_str: str):
         words = re.sub("\\s+", " ", time_str).split()
         words[0] = str(random.randrange(60))
@@ -210,14 +211,15 @@ def change_cron(cron_file_path="/ql/db/crontab.db",repositories="yuxian158_check
     time_str = time.strftime("%Y-%m-%d", time.localtime())
     os.system(f"cp /ql/db/crontab.db /ql/db/crontab.db.{time_str}.back")
     lines = []
-    with open(cron_file_path, "r" ,encoding="UTF-8") as f:
+    with open(cron_file_path, "r", encoding="UTF-8") as f:
         for i in f.readlines():
             # print(record.get("command"))
             if i.find(repositories) != -1:
                 record = json.loads(i)
                 record["schedule"] = change_time(record["schedule"])
                 lines.append(json.dumps(record, ensure_ascii=False) + "\n")
-            else:lines.append(i)
+            else:
+                lines.append(i)
 
     with open(cron_file_path, "w", encoding="UTF-8") as f:
         f.writelines(lines)

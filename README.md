@@ -38,7 +38,9 @@
 
 #### 1.dailycheckin_scripts：
 
-该文件夹下是https://github.com/sitoi/dailycheckin该项目的全部支持脚本[具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
+该文件夹下是 [sitoi/dailycheckin](https://github.com/sitoi/dailycheckin) 该项目的全部支持脚本
+
+[配置方式查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
 
 ## 使用方法
 
@@ -92,6 +94,37 @@ pip3 install requests rsa tomli tomli_w beautifulsoup4
 1.本仓库在12.21日的更新中同时支持了json和toml两种格式的配置文件，但是推荐使用toml格式配置文件
 
 2.当toml和json配置文件共存时优先使用toml文件
+
+3.为避免未设置的签到项目推送，请注释掉未使用的项目
+
+4.**更新支持了多账号**
+
+toml配置方式
+
+```toml
+[[ACFUN]]
+password = "Sitoi"
+phone = "188xxxxxxxx"
+
+[[ACFUN]]
+password = "123456"
+phone = "135xxxxxxxx"
+```
+
+json配置方式
+
+```json
+  "ACFUN": [
+    {
+      "password": "Sitoi",
+      "phone": "18888xxxxxx"
+    },
+    {
+      "password": "多账号 密码填写，请参考上面",
+      "phone": "多账号 手机号填写，请参考上面"
+    }
+  ],
+```
 
 ## 其他
 

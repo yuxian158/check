@@ -38,8 +38,7 @@
 
 #### 1.dailycheckin_scripts：
 
-该文件夹下是https://github.com/sitoi/dailycheckin(https://github.com/sitoi/dailycheckin) 该项目的全部支持脚本
-[具体查看](https://github.com/yuxian158/check/blob/master/dailycheckin_scripts/README.md)
+该文件夹下是https://github.com/sitoi/dailycheckin该项目的全部支持脚本[具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
 
 ## 使用方法
 
@@ -80,15 +79,21 @@ cp /ql/repo/yuxian158_check/check.sample.json /ql/config/check.json
 
 然后不出意外的话你可以在青龙面板的配置文件下找到check.toml或check.json文件
 
-然后根据各文件夹下REDEME修改配置[这里](https://github.com/yuxian158/check/blob/master/dailycheckin_scripts/README.md)
+然后根据文件夹下REDEME修改配置[这里](https://sitoi.gitee.io/dailycheckin/settings/)
 
-### 3.说明
+### 3.依赖安装
+
+```
+pip3 install requests rsa tomli tomli_w beautifulsoup4
+```
+
+### 4.说明
 
 1.本仓库在12.21日的更新中同时支持了json和toml两种格式的配置文件，但是推荐使用toml格式配置文件
 
 2.当toml和json配置文件共存时优先使用toml文件
 
-### 4.其他
+## 其他
 
 #### 1.关于 toml 的语法参考：
 

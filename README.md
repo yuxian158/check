@@ -42,6 +42,8 @@
 
 [配置方式查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
 
+AcFun | 百度搜索资源平台 | Bilibili | 天翼云盘 | CSDN | 多看阅读 | 恩山论坛 | Fa米家 | 网易云游戏 | 葫芦侠 | 爱奇艺 | 全民K歌 | MEIZU 社区 | 芒果 TV | 小米运动 | 网易云音乐 | 一加手机社区官方论坛 | 哔咔漫画 | 吾爱破解 | 什么值得买 | 百度贴吧 | V2EX | 腾讯视频 | 微博 | 联通沃邮箱 | 哔咔网单 | 王者营地 | 有道云笔记 | 智友邦 | 机场签到 | 欢太商城 | NGA | 掘金 | GLaDOS | HiFiNi | 时光相册 | 联通营业厅
+
 ## 使用方法
 
 **进入容器后运行以下命令**（docker exec -it ql bash）修改ql为你的青龙容器名字
@@ -95,7 +97,7 @@ pip3 install requests rsa tomli tomli_w beautifulsoup4
 
 2.当toml和json配置文件共存时优先使用toml文件
 
-3.为避免未设置的签到项目推送，请注释掉未使用的项目
+3.为避免未设置的签到项目推送，请禁止该签到任务，或注释掉配置文件中关于这个任务的配置项目
 
 4.**更新支持了多账号**
 
@@ -125,6 +127,8 @@ json配置方式
     }
   ],
 ```
+
+5.通知配置来自于青龙的config.sh
 
 ## 其他
 

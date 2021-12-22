@@ -39,7 +39,7 @@
 #### 1.dailycheckin_scripts：
 
 该文件夹下是https://github.com/sitoi/dailycheckin(https://github.com/sitoi/dailycheckin) 该项目的全部支持脚本
-[具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
+[具体查看](https://github.com/yuxian158/check/blob/master/dailycheckin_scripts/README.md)
 
 ## 使用方法
 
@@ -80,7 +80,7 @@ cp /ql/repo/yuxian158_check/check.sample.json /ql/config/check.json
 
 然后不出意外的话你可以在青龙面板的配置文件下找到check.toml或check.json文件
 
-然后根据文件夹下REDEME修改配置[这里](https://sitoi.gitee.io/dailycheckin/settings/)
+然后根据各文件夹下REDEME修改配置[这里](https://github.com/yuxian158/check/blob/master/dailycheckin_scripts/README.md)
 
 ### 3.说明
 

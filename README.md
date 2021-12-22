@@ -116,7 +116,7 @@ phone = "135xxxxxxxx"
 json配置方式
 
 ```json
-  "ACFUN": [
+  "ACFUN" : [
     {
       "password": "Sitoi",
       "phone": "18888xxxxxx"

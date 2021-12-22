@@ -40,7 +40,7 @@
 
 该文件夹下是 [sitoi/dailycheckin](https://github.com/sitoi/dailycheckin) 该项目的全部支持脚本
 
-[配置方式查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
+[配置方式查看](https://github.com/yuxian158/check/blob/master/dailycheckin_scripts/README.md)
 
 AcFun | 百度搜索资源平台 | Bilibili | 天翼云盘 | CSDN | 多看阅读 | 恩山论坛 | Fa米家 | 网易云游戏 | 葫芦侠 | 爱奇艺 | 全民K歌 | MEIZU 社区 | 芒果 TV | 小米运动 | 网易云音乐 | 一加手机社区官方论坛 | 哔咔漫画 | 吾爱破解 | 什么值得买 | 百度贴吧 | V2EX | 腾讯视频 | 微博 | 联通沃邮箱 | 哔咔网单 | 王者营地 | 有道云笔记 | 智友邦 | 机场签到 | 欢太商城 | NGA | 掘金 | GLaDOS | HiFiNi | 时光相册 | 联通营业厅
 

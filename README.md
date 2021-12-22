@@ -40,7 +40,7 @@
 
 该文件夹下是 [sitoi/dailycheckin](https://github.com/sitoi/dailycheckin) 该项目的全部支持脚本
 
-[配置方式查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
+[配置方式查看](https://github.com/yuxian158/check/blob/master/dailycheckin_scripts/README.md)
 
 ## 使用方法
 

@@ -32,51 +32,78 @@
 
 > ***您使用或者复制了本仓库且本人制作的任何脚本，则视为 `已接受` 此声明，请仔细阅读***
 
-## 使用方法
+## 支持的签到列表
 
-### 1.拉取仓库
+可以在各文件夹查看
+
+#### 1.dailycheckin_scripts：
+
+该文件夹下是https://github.com/sitoi/dailycheckin该项目的全部支持脚本[具体查看](https://github.com/yuxian158/check/dailycheckin_scripts/README.md)
+
+## 使用方法
 
 **进入容器后运行以下命令**（docker exec -it ql bash）修改ql为你的青龙容器名字
 
+以下命令全部都是进入容器后输入
+
+### 1.拉取仓库
+
+只使用dailycheckin_scripts：
+
 ```
-pip3 install requests rsa
-ql repo https://github.com/yuxian158/check.git "ck_" "" "checksendNotify|getENV"
-cp /ql/repo/yuxian158_check/config.json /ql/config/check.json
+ql repo https://github.com/yuxian158/check.git "ck_" "" "checksend|utils"
+```
+
+只使用others_scripts：
+
+```
+ql repo https://github.com/yuxian158/check.git "oc_" "" "checksend|utils"
+```
+
+我全都要:
+
+```
+ql repo https://github.com/yuxian158/check.git "" "" "checksend|utils"
 ```
 
 ### 2.配置
 
-然后不出意外的话你可以在青龙面板的配置文件下找到check.json文件
+```
+cp /ql/repo/yuxian158_check/check.sample.toml /ql/config/check.toml
+```
 
-然后根据原文档修改配置[这里](https://sitoi.gitee.io/dailycheckin/settings/)
+或使用json格式(不推荐)
+```
+cp /ql/repo/yuxian158_check/check.sample.json /ql/config/check.json
+```
 
-## 修改说明
+然后不出意外的话你可以在青龙面板的配置文件下找到check.toml或check.json文件
 
-### 1.**添加了葫芦侠的签到配置**
+然后根据文件夹下REDEME修改配置[这里](https://sitoi.gitee.io/dailycheckin/settings/)
 
-​	参数说明：`HLX.user`：用户名 `HLX.password`:密码的MD532位小写加密[生成](https://md5jiami.bmcx.com/)
+### 3.说明
 
-### 2。**添加了网易云游戏的签到配置**
+1.本仓库在12.21日的更新中同时支持了json和toml两种格式的配置文件，但是推荐使用toml格式配置文件
 
-[官网](https://cg.163.com/#/mobile)
+2.当toml和json配置文件共存时优先使用toml文件
 
-参数说明：`163game.Authorization`
+### 4.其他
 
-登录后抓取签到请求（一般请求的请求头也有这个字段）
+#### 1.关于 toml 的语法参考：
 
-[![fMdyEq.png](https://z3.ax1x.com/2021/08/07/fMdyEq.png)](https://imgtu.com/i/fMdyEq)
-
-## 其他说明
-
-1.本库直接使用了青龙的通知配置
-
-2.请自行修改执行时间
+* [toml-lang/toml](https://github.com/toml-lang/toml)
+* [中文知乎介绍](https://zhuanlan.zhihu.com/p/50412485)
+* [TOML 教程中文版](https://toml.io/cn/v1.0.0)
+#### 2.排错指引
+1.在sitoi/dailycheckin的某次更新中修改了键名，请尽量删除原配置文件后重新配置
+2.本库找配置文件时使用了正则表达式,在最外层配置时可以不区分大小写，且只要包含字段就可以，甚至可以写中文(强烈不建议这么写,貌似toml不支持)
+3.很多脚本并没有测试
+4.本库所有脚本都未加运行时间提示，可以拉取后所有脚本运行时间都一样
 
 ## 致谢
 
 [@Wenmoux](https://github.com/Wenmoux/)  
 
-[@MayoBlueSky](https://github.com/MayoBlueSky)
-
 [@Sitoi](https://github.com/Sitoi)
 
+[@Oreomeow](https://github.com/Oreomeow)

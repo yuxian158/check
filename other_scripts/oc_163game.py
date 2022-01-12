@@ -29,7 +29,7 @@ class Game163:
         msg_all = ""
         authorization = str(self.check_items.get("authorization"))
         msg = self.checkin(authorization=authorization)
-        msg_all += msg + "\n\n"
+        msg_all += msg
         return msg_all
 
 

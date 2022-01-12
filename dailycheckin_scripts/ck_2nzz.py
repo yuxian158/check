@@ -67,11 +67,10 @@ class WWW2NZZ:
         return msg
 
 
-@check(run_script_name="小米运动",run_script_expression="WWW2NZZ")
+@check(run_script_name="咔叽网单", run_script_expression="WWW2NZZ")
 def main(*args, **kwargs):
     return WWW2NZZ(check_item=kwargs.get("value")).main()
 
 
 if __name__ == "__main__":
     main()
-

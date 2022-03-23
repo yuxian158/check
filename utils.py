@@ -173,7 +173,7 @@ class check(object):
                     print(f"获取到的账号信息为:{value}\n")
                     num += 1
                     try:
-                        result = func(value=value) + '/n'
+                        result = func(value=value) + '\n'
                         print(f"执行结果:\n{result}")
                         Push_message += result
                     except IndexError:

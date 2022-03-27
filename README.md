@@ -70,28 +70,25 @@ ql repo https://github.com/yuxian158/check.git "oc_" "" "checksend|utils"
 ql repo https://github.com/yuxian158/check.git "ck_|oc_" "" "checksend|utils"
 ```
 
-### 2.配置
+### 2.运行以下命令
 
-```
-cp /ql/repo/yuxian158_check/check.sample.toml /ql/config/check.toml
+旧版(青龙v2.12以下)
+
+```shell
+cd /ql/repo/yuxian158_check && python3 utils.py
 ```
 
-或使用json格式(不推荐)
-```
-cp /ql/repo/yuxian158_check/check.sample.json /ql/config/check.json
+新版
+
+```shell
+cd /ql/data/repo/yuxian158_check && python3 utils.py
 ```
 
 然后不出意外的话你可以在青龙面板的配置文件下找到check.toml或check.json文件
 
-然后根据文件夹下REDEME修改配置[这里](https://sitoi.gitee.io/dailycheckin/settings/)
+然后根据各文件夹下REDEME修改配置[这里](https://sitoi.gitee.io/dailycheckin/settings/)
 
-### 3.依赖安装
-
-```
-pip3 install requests rsa tomli tomli_w beautifulsoup4
-```
-
-### 4.说明
+### 3.说明
 
 1.本仓库在12.21日的更新中同时支持了json和toml两种格式的配置文件，但是推荐使用toml格式配置文件
 
@@ -99,7 +96,23 @@ pip3 install requests rsa tomli tomli_w beautifulsoup4
 
 3.为避免未设置的签到项目推送，请禁止该签到任务，或注释掉配置文件中关于这个任务的配置项目
 
-4.**更新支持了多账号**
+4.在运行修改运行时间后若出现未知错误
+
+**请先确认database.sqlite.back或crontab.db.back是否存在**,然后
+
+```
+cd /ql/data/db/ && rm database.sqlite && cp database.sqlite.back database.sqlite #v2.12+
+```
+
+```
+cd /ql/db/ && rm database.sqlite && cp database.sqlite.back database.sqlite #v2.11+
+```
+
+```
+cd /ql/db/ && rm crontab.db && cp crontab.db.back crontab.db #v2.11-
+```
+
+5.**更新支持了多账号**
 
 toml配置方式
 
@@ -143,21 +156,6 @@ json配置方式
 2.本库找配置文件时使用了正则表达式,在最外层配置时可以不区分大小写，且只要包含字段就可以，甚至可以写中文(强烈不建议这么写,貌似toml不支持)
 
 3.很多脚本并没有测试
-
-4.本库所有脚本都未加运行时间提示，可以拉取后所有脚本运行时间都一样，可以运行
-
-```
-python3 /ql/repo/yuxian158_check/utils.py
-```
-然后重启容器
-修改ql为你的青龙容器名字
-
-```
-docker restart ql
-```
-
-
-来随机运行时间(不推荐，尽量手动修改)
 
 ## 致谢
 

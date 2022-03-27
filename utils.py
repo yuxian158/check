@@ -238,7 +238,7 @@ class check(object):
 
 def change_cron_new(cron_file_path="/ql/data/db/database.sqlite", repositories="yuxian158_check"):
     print("尝试修改定时时间")
-    os.system("cp /ql/data/db/database.sqlite /ql/data/db/database.sqlite.back")
+    os.system(f"cp {cron_file_path} {cron_file_path}.back")
     con = sqlite3.connect(cron_file_path)
     cur = con.cursor()
 

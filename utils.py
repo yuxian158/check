@@ -8,22 +8,32 @@ import traceback
 # import tomli_w
 from functools import wraps
 
-import tomli
+
+def pip_install():
+    print("正在安装依赖")
+    os.system("pip3 install requests rsa tomli tomli_w beautifulsoup4")
+
+
+try:
+    import tomli
+except ModuleNotFoundError:
+    pip_install()
+    import tomli
 
 from checksendNotify import send
 
 
-def toml_to_json(toml_path, to_json_path):
-    """
-    :param toml_path: 需要转换的toml文件的路径
-    :param to_json_path: 需要输出的json文件路径
-    :return: None
-    """
-    with open(toml_path, "rb") as f:
-        toml_dict = tomli.load(f)
-        json_date = json.dumps(toml_dict, indent=4, ensure_ascii=False)
-        with open(to_json_path, 'w', encoding="utf8") as s:
-            s.write(json_date)
+# def toml_to_json(toml_path, to_json_path):
+#     """
+#     :param toml_path: 需要转换的toml文件的路径
+#     :param to_json_path: 需要输出的json文件路径
+#     :return: None
+#     """
+#     with open(toml_path, "rb") as f:
+#         toml_dict = tomli.load(f)
+#         json_date = json.dumps(toml_dict, indent=4, ensure_ascii=False)
+#         with open(to_json_path, 'w', encoding="utf8") as s:
+#             s.write(json_date)
 
 
 # def json_to_toml(json_path, to_toml_path):
@@ -226,11 +236,6 @@ class check(object):
         return wrapper
 
 
-def pip_install():
-    print("正在安装依赖")
-    os.system("pip3 install requests rsa tomli tomli_w beautifulsoup4")
-
-
 def change_cron_new(cron_file_path="/ql/data/db/database.sqlite", repositories="yuxian158_check"):
     print("尝试修改定时时间")
     os.system("cp /ql/data/db/database.sqlite /ql/data/db/database.sqlite.back")
@@ -285,8 +290,10 @@ if __name__ == "__main__":
     pip_install()
     config = config_get()
     if config.config_path == "/ql/config/":
-        change_cron_old()
-        print("修改完成请重启容器")
+        if os.path.isfile("/ql/db/database.sqlite"):
+            change_cron_new(cron_file_path="/ql/db/database.sqlite")
+        else:
+            change_cron_new()
     else:
         change_cron_new()
         print("修改完成请重启容器")

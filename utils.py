@@ -293,7 +293,7 @@ if __name__ == "__main__":
         if os.path.isfile("/ql/db/database.sqlite"):
             change_cron_new(cron_file_path="/ql/db/database.sqlite")
         else:
-            change_cron_new()
+            change_cron_old()
     else:
         change_cron_new()
         print("修改完成请重启容器")

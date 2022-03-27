@@ -2,6 +2,7 @@ import json
 import os
 import random
 import re
+import sqlite3
 import time
 import traceback
 # import tomli_w
@@ -32,15 +33,19 @@ def toml_to_json(toml_path, to_json_path):
 #             tomli_w.dump(json_dict, f)
 
 class config_get(object):
-    def __init__(self, config_path=None):
+    def __init__(self, custom_path=None):
         """
         config_path: 自定义配置文件路径
         config_file: 实际使用的配置文件路径
         config_format: 实际使用的配置文件格式
         """
-        self.config_path = config_path
-        self.config_file = self.get_config_file()
-        self.config_format = self.get_config_format()
+        if custom_path is None:
+            self.config_path = self.get_config_path()
+            self.config_file = self.get_config_file()
+            self.config_format = self.get_config_format()
+        else:
+            self.config_file = custom_path
+            self.config_format = self.get_config_format()
 
     def get_config_format(self):
         if self.config_file.endswith('.toml'):
@@ -48,30 +53,40 @@ class config_get(object):
         else:
             return "json"
 
-    def get_config_file(self):
-        ql_new = '/ql/config/env.sh'
-        json_config_file = '/ql/config/check.json'
-        toml_config_file = '/ql/config/check.toml'
-        print('开始检查环境\n')
-        if os.path.exists(ql_new):
-            print('成功 当前环境为青龙面板继续执行\n')
-            if self.config_path is not None:
-                print("使用了自定义路径的配置文件")
-                return self.config_path
-            elif os.path.exists(toml_config_file):
-                print("未使用自定义配置文件,开始从ql/config中检测")
-                print("检测到toml格式配置文件\n")
-                return toml_config_file
-            elif os.path.exists(json_config_file):
-                print("检测到json格式配置文件\n")
-                return json_config_file
-            else:
-                print("未检测到配置文件，程序退出")
-                exit(1)
+    @staticmethod
+    def get_config_path():
+        ql_old = "/ql/config/"
+        ql_new = "/ql/data/config/"
+        if os.path.isdir(ql_old):
+            print('成功 当前环境为青龙面板v2.12- 继续执行\n')
+            return ql_old
+        elif os.path.isdir(ql_new):
+            print('成功 当前环境为青龙面板v2.12+ 继续执行\n')
+            return ql_new
         else:
             print('失败 请检查环境')
             exit(0)
-            return 0
+
+    def get_config_file(self):
+        toml_file = f"{self.config_path}check.toml"
+        json_file = f"{self.config_path}check.json"
+        if os.path.exists(toml_file):
+            print(f"启用了toml配置文件\n路径为{toml_file}\n")
+            return toml_file
+        elif os.path.exists(json_file):
+            print(f"启用了json配置文件\n路径为{json_file}\n")
+            return json_file
+        else:
+            print("未找到配置文件")
+            self.move_config_file()
+            return toml_file
+
+    def move_config_file(self):
+        print("尝试移动配置文件到目录")
+        if self.config_path == "/ql/config/":
+            self.move_configuration_file_old()
+        else:
+            self.move_configuration_file_new()
 
     def get_real_key(self, expression):
         """
@@ -88,7 +103,7 @@ class config_get(object):
             for key in self.get_key_for_json(self.config_file):
                 if pattern.match(key) is not None:
                     real_key = key
-        if real_key is not '':
+        if real_key != '':
             return real_key
         else:
             print("啊哦没有找到")
@@ -100,6 +115,16 @@ class config_get(object):
             return self.get_value_for_toml(self.config_file, real_key)
         else:
             return self.get_value_for_json(self.config_file, real_key)
+
+    @staticmethod
+    def move_configuration_file_old():
+        print("移动配置文件")
+        os.system("cp /ql/repo/yuxian158_check/check.sample.toml /ql/config/check.toml")
+
+    @staticmethod
+    def move_configuration_file_new():
+        print("移动配置文件")
+        os.system("cp /ql/data/repo/yuxian158_check/check.sample.toml /ql/data/config/check.toml")
 
     @staticmethod
     def get_value_for_toml(toml_path, key):
@@ -166,7 +191,7 @@ class check(object):
             if not self.Configuration_flag:
                 config = config_get()
                 value_list = config.get_value(self.run_script_expression)
-                Push_message = ""
+                push_message = ""
                 num = 1
                 for value in value_list:
                     print(f"<----------------账号【{num}】---------------->")
@@ -175,20 +200,20 @@ class check(object):
                     try:
                         result = func(value=value) + '\n\n'
                         print(f"执行结果:\n{result}")
-                        Push_message += result
+                        push_message += result
                     except IndexError:
                         print("可能是示例格式被运行\n错误信息:")
                         print(f"{traceback.format_exc()}")
-                        Push_message += ''
+                        push_message += ''
                     except AttributeError:
                         print("可能是配置文件的键名出现问题\n"
                               "例如:在此次更新中什么值得买的键名从smzdm_cookie变成了cookie\n")
                         print(f"{traceback.format_exc()}")
-                        Push_message += ''
+                        push_message += ''
                     except TypeError:
                         print(f"{traceback.format_exc()}")
-                        Push_message += ''
-                send(self.run_script_name, Push_message)
+                        push_message += ''
+                send(self.run_script_name, push_message)
             else:
                 config = config_get()
                 flag = config.get_value(self.run_script_expression)
@@ -201,7 +226,38 @@ class check(object):
         return wrapper
 
 
-def change_cron(cron_file_path="/ql/db/crontab.db", repositories="yuxian158_check"):
+def pip_install():
+    print("正在安装依赖")
+    os.system("pip3 install requests rsa tomli tomli_w beautifulsoup4")
+
+
+def change_cron_new(cron_file_path="/ql/data/db/database.sqlite", repositories="yuxian158_check"):
+    print("尝试修改定时时间")
+    os.system("cp /ql/data/db/database.sqlite /ql/data/db/database.sqlite.back")
+    con = sqlite3.connect(cron_file_path)
+    cur = con.cursor()
+
+    def change_time(time_str: str):
+        words = re.sub("\\s+", " ", time_str).split()
+        words[0] = str(random.randrange(60))
+        words[1] = str(random.randrange(22))
+        return " ".join(words)
+
+    cur.execute("select id,name,command,schedule from Crontabs")
+    res = cur.fetchall()
+    for line in res:
+        if line[2].find(repositories) != -1:
+            sql = f" UPDATE Crontabs SET schedule = \"{change_time(line[3])}\" WHERE id = {line[0]}"
+            print(f"任务名称 {line[1]} 修改为{sql}")
+            cur.execute(sql)
+
+    con.commit()
+    con.close()
+
+
+def change_cron_old(cron_file_path="/ql/db/crontab.db", repositories="yuxian158_check"):
+    print("尝试修改定时时间")
+
     def change_time(time_str: str):
         words = re.sub("\\s+", " ", time_str).split()
         words[0] = str(random.randrange(60))
@@ -226,4 +282,11 @@ def change_cron(cron_file_path="/ql/db/crontab.db", repositories="yuxian158_chec
 
 
 if __name__ == "__main__":
-    change_cron()
+    pip_install()
+    config = config_get()
+    if config.config_path == "/ql/config/":
+        change_cron_old()
+        print("修改完成请重启容器")
+    else:
+        change_cron_new()
+        print("修改完成请重启容器")

@@ -112,7 +112,7 @@ cd /ql/db/ && rm database.sqlite && cp database.sqlite.back database.sqlite #v2.
 cd /ql/db/ && rm crontab.db && cp crontab.db.back crontab.db #v2.11-
 ```
 
-5.**更新支持了多账号**
+### 4.**更新支持了多账号**
 
 toml配置方式
 
@@ -131,17 +131,27 @@ json配置方式
 ```json
   "ACFUN" : [
     {
-      "password": "Sitoi",
-      "phone": "18888xxxxxx"
+    "password": "Sitoi",
+    "phone": "18888xxxxxx"
     },
-    {
-      "password": "多账号 密码填写，请参考上面",
-      "phone": "多账号 手机号填写，请参考上面"
-    }
-  ],
+{
+"password": "多账号 密码填写，请参考上面",
+"phone": "多账号 手机号填写，请参考上面"
+}
+],
 ```
 
-5.通知配置来自于青龙的config.sh
+### 5.通知配置
+
+来自于青龙的config.sh
+
+**在2022.4.10更新接入消息推送APP**
+
+环境变量为设置别名的内容
+
+```shell
+export MI_PUSH_ALIAS="********"
+```
 
 ## 其他
 
@@ -150,7 +160,9 @@ json配置方式
 * [toml-lang/toml](https://github.com/toml-lang/toml)
 * [中文知乎介绍](https://zhuanlan.zhihu.com/p/50412485)
 * [TOML 教程中文版](https://toml.io/cn/v1.0.0)
+
 #### 2.排错指引
+
 1.在sitoi/dailycheckin的某次更新中修改了键名，请尽量删除原配置文件后重新配置
 
 2.本库找配置文件时使用了正则表达式,在最外层配置时可以不区分大小写，且只要包含字段就可以，甚至可以写中文(强烈不建议这么写,貌似toml不支持)

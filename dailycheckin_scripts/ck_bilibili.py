@@ -31,7 +31,7 @@ class BiliBili():
     @staticmethod
     def reward(session) -> dict:
         """取B站经验信息"""
-        url = "https://account.bilibili.com/home/reward"
+        url = "https://api.bilibili.com/x/member/web/exp/reward"
         ret = session.get(url=url).json()
         return ret
 
@@ -257,7 +257,7 @@ class BiliBili():
             live_msg = self.live_sign(session=session)
             aid_list = self.get_region(session=session)
             reward_ret = self.reward(session=session)
-            coins_av_count = reward_ret.get("data", {}).get("coins_av") // 10
+            coins_av_count = reward_ret.get("data", {}).get("coins") // 10
             coin_num = coin_num - coins_av_count
             coin_num = coin_num if coin_num < coin else coin
             if coin_type == 1 and coin_num:
@@ -303,10 +303,10 @@ class BiliBili():
             live_stats = self.live_status(session=session)
             uname, uid, is_login, new_coin, vip_type, new_current_exp = self.get_nav(session=session)
             reward_ret = self.reward(session=session)
-            login = reward_ret.get("data", {}).get("login")
-            watch_av = reward_ret.get("data", {}).get("watch_av")
-            coins_av = reward_ret.get("data", {}).get("coins_av", 0)
-            share_av = reward_ret.get("data", {}).get("share_av")
+            login = 1 if reward_ret.get("data", {}).get("login") else 0
+            watch_av = 1 if reward_ret.get("data", {}).get("watch") else 0
+            coins_av = 1 if reward_ret.get("data", {}).get("coins", 0) else 0
+            share_av = 1 if reward_ret.get("data", {}).get("share") else 0
             today_exp = len([one for one in [login, watch_av, share_av] if one]) * 5
             today_exp += coins_av
             update_data = (28800 - new_current_exp) // (today_exp if today_exp else 1)

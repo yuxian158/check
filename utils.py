@@ -67,12 +67,12 @@ class config_get(object):
     def get_config_path():
         ql_old = "/ql/config/"
         ql_new = "/ql/data/config/"
-        if os.path.isdir(ql_old):
-            print('成功 当前环境为青龙面板v2.12- 继续执行\n')
-            return ql_old
-        elif os.path.isdir(ql_new):
+        if os.path.isdir(ql_new):
             print('成功 当前环境为青龙面板v2.12+ 继续执行\n')
             return ql_new
+        elif os.path.isdir(ql_old):
+            print('成功 当前环境为青龙面板v2.12- 继续执行\n')
+            return ql_old
         else:
             print('失败 请检查环境')
             exit(0)
